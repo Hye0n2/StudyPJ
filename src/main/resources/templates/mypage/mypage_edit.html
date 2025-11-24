@@ -1,0 +1,78 @@
+<!-- 1. mypage_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{fragments/mypage_layout :: mypageLayout(
+          title='회원 정보 수정', 
+          menuCode='edit',
+          css=~{::#mypage-edit-css}, 
+          content=~{::.mypage-content-fragment}
+      )}">
+
+<!-- 2. 이 페이지 전용 CSS (form, auth 재사용) -->
+<th:block id="mypage-edit-css">
+    <link rel="stylesheet" th:href="@{/css/form.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="mypage-content-fragment">
+    
+    <!-- (form.css의 .form-wrapper 재사용) -->
+    <div class="form-wrapper" style="margin: 0; max-width: 100%; box-shadow: none; padding: 0;"> 
+        <h1>회원 정보 수정</h1>
+        <p style="margin-bottom: 25px; color: #666;">이메일, 비밀번호, 주소 등 회원 정보를 수정할 수 있습니다.</p>
+
+        <form action="/mypage/edit" method="post">
+            <div class="form-group">
+                <label for="username">아이디</label>
+                <input type="text" id="username" name="username" class="form-control" value="user94" readonly>
+            </div>
+            <div class="form-group">
+                <label for="password">새 비밀번호</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="새 비밀번호를 입력하세요 (선택)">
+            </div>
+            <div class="form-group">
+                <label for="password_confirm">새 비밀번호 확인</label>
+                <input type="password" id="password_confirm" name="password_confirm" class="form-control" placeholder="새 비밀번호를 다시 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" class="form-control" value="user94@test.com" required>
+            </div>
+
+            <!-- 주소 검색 API 뼈대 -->
+            <div class="form-group address-group">
+                <label for="zipcode">우편번호</label>
+                <div class="address-search">
+                    <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="우편번호" readonly>
+                    <button type="button" class="btn btn-secondary" id="btn-search-address-mypage">주소 검색</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address1">주소</label>
+                <input type="text" id="address1" name="address1" class="form-control" placeholder="주소" readonly>
+            </div>
+            <div class="form-group">
+                <label for="address2">상세주소</label>
+                <input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소를 입력하세요.">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">수정 완료</button>
+        </form>
+    </div>
+
+    <!-- === 페이지 전용 스크립트 (주소검색) === -->
+    <!-- (이 스크립트는 뼈대(mypage_layout)가 아닌, 이 페이지에만 필요합니다) -->
+    <script th:inline="javascript">
+        document.getElementById("btn-search-address-mypage").addEventListener("click", function(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    document.getElementById("zipcode").value = data.zonecode;
+                    document.getElementById("address1").value = data.address;
+                    document.getElementById("address2").focus();
+                }
+            }).open();
+        });
+    </script>
+    
+</div>
+</html>

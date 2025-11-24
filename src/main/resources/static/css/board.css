@@ -1,0 +1,48 @@
+/* === 7. 게시판 (Q&A) === */
+.board-wrapper {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+.board-wrapper h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+.board-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-bottom: 20px;
+}
+.board-table th, .board-table td { 
+    padding: 12px 15px; 
+    border-bottom: 1px solid var(--border-color); 
+    text-align: left;
+}
+.board-table th { 
+    background-color: var(--light-gray); 
+    font-weight: 500; 
+}
+.board-table td a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+.board-table td a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* 테이블 컬럼 너비 (Q&A) */
+.board-table .th-num, .board-table td:nth-child(1) { text-align: center; width: 8%; }
+.board-table .th-author, .board-table td:nth-child(3) { text-align: center; width: 15%; }
+.board-table .th-date, .board-table td:nth-child(4) { text-align: center; width: 17%; }
+.board-table .th-title { width: 60%; }
+
+.board-actions { 
+    display: flex; 
+    justify-content: flex-end; 
+    margin-top: 20px; 
+}

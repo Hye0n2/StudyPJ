@@ -1,0 +1,46 @@
+<!-- 1. admin_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{fragments/admin_layout :: adminLayout(
+          title='주문 관리', 
+          menuCode='order', 
+          css=~{::#admin-order-css}, 
+          content=~{::.admin-content-fragment}
+      )}">
+
+<!-- 2. 이 페이지 전용 CSS (board.css 재사용) -->
+<th:block id="admin-order-css">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="admin-content-fragment">
+    
+    <h1>주문 관리</h1>
+    <p style="margin-bottom: 25px; color: #666;">전체 주문 목록입니다.</p>
+    
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th style="width: 15%;">주문 번호</th>
+                <th style="width: 25%; text-align: left;">주문 상품</th>
+                <th style="width: 15%;">주문자</th>
+                <th style="width: 15%;">결제 금액</th>
+                <th style="width: 15%;">주문일</th>
+                <th style="width: 15%;">상태</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>20251108-001</td>
+                <td style="text-align: left;">[특가] 스프링 부트 외 1건</td>
+                <td>user94</td>
+                <td>158,000원</td>
+                <td>2025-11-08</td>
+                <td style="color: green; font-weight: bold;">배송 완료</td>
+            </tr>
+            <!-- ... (나중에 반복) ... -->
+        </tbody>
+    </table>
+    
+</div>
+</html>

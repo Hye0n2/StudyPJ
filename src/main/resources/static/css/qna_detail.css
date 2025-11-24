@@ -1,0 +1,162 @@
+/* === Q&A 상세 보기 페이지 (공통) === */
+/* (아코디언 내부에서 상세 내용 보여줄 때 재사용됨) */
+.qna-detail-box {
+    background-color: #fff;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.07); */ /* 아코디언 내부에서는 제거 */
+    margin-bottom: 30px;
+}
+
+.qna-detail-header {
+    padding: 20px 25px;
+    border-bottom: 1px solid var(--border-color);
+}
+.qna-detail-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.qna-detail-meta {
+    font-size: 0.9rem;
+    color: #666;
+}
+.qna-detail-meta span:not(:last-child)::after {
+    content: "|";
+    margin: 0 10px;
+    color: #ccc;
+}
+
+.qna-detail-content {
+    padding: 25px;
+    font-size: 1rem;
+    line-height: 1.7;
+    min-height: 100px; /* 최소 높이 조정 */
+}
+
+/* 답변(Answer) 박스 스타일 */
+.qna-answer-box {
+    background-color: var(--light-gray); /* 살짝 다른 배경색 */
+    margin-bottom: 0; /* 마지막 박스는 여백 제거 */
+}
+.qna-answer-header {
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.qna-answer-header .admin-icon {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+.qna-answer-header h3 {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* === 아코디언 리스트 스타일 (mypage_qna.html) === */
+
+/* 1. (클릭할) 질문 제목 영역 */
+.qna-list-item {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 15px 20px;
+    
+    display: flex;
+    align-items: center;
+    gap: 15px; /* 아이템 간 간격 */
+    
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-radius 0.1s ease;
+    
+    /* 닫혔을 때와 열렸을 때 테두리 둥글게 */
+    margin-bottom: 10px;
+}
+.qna-list-item:hover {
+    background-color: var(--light-gray);
+}
+
+/* (자식 요소) 답변 상태 (초록/빨강) */
+.qna-list-item .qna-status-answered {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: green;
+    flex-shrink: 0; /* 줄어들지 않음 */
+}
+.qna-list-item .qna-status-pending {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #d9534f; /* 빨간색 */
+    flex-shrink: 0;
+}
+
+/* (자식 요소) 질문 제목 */
+.qna-list-item .qna-title {
+    flex: 1; /* 남은 공간 모두 차지 */
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* (자식 요소) 날짜 */
+.qna-list-item .qna-date {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* (자식 요소) 화살표 아이콘 */
+.qna-list-item .arrow-icon {
+    font-size: 0.9rem;
+    color: #888;
+    transition: transform 0.3s ease;
+}
+
+/* 'active' 클래스가 붙었을 때 (JS가 제어) */
+.qna-list-item.active .arrow-icon {
+    transform: rotate(180deg); /* 화살표 회전 */
+}
+.qna-list-item.active {
+    border-radius: 6px 6px 0 0; /* 열렸을 때 하단 모서리 펴기 */
+}
+
+
+/* 2. (숨겨진) 상세 내용 영역 */
+.qna-hidden-content {
+    /* 내용을 기본적으로 숨김 */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+/* 'active' 상태일 때의 스타일 (JS가 제어) */
+.qna-list-item.active + .qna-hidden-content {
+    /* JS가 'max-height'를 설정하면, 부드럽게 열림 */
+    
+    /* 윗 여백(제목과의 간격) */
+    margin-top: -1px; /* 테두리 겹침 방지 */
+    margin-bottom: 10px;
+    
+    /* 질문/답변 박스 패딩 조정 */
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-top: none; /* 제목줄과 테두리 겹치지 않게 */
+    border-radius: 0 0 6px 6px;
+    background-color: #fff;
+}
+
+/* 숨겨진 내용 안의 질문/답변 박스 (qna_detail.css 재사용) */
+.qna-hidden-content .qna-detail-box {
+    box-shadow: none; /* 내부 박스는 그림자 제거 */
+    border: 1px solid var(--border-color); /* 내부 박스 구분선 */
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+.qna-hidden-content .qna-answer-box {
+    margin-bottom: 0;
+    border-radius: 6px;
+}

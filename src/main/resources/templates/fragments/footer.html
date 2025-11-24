@@ -1,0 +1,76 @@
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <!-- 1. 푸터 부품 -->
+    <footer class="footer" th:fragment="footerFragment">
+        <p>&copy; 2025 My Shop. All rights reserved.</p>
+    </footer>
+
+    <!-- 2. 챗봇 부품 + 알림 스크립트 -->
+    <div th:fragment="chatbotFragment">
+        <!-- 챗봇 아이콘 & 창 (기존 코드 유지) -->
+        <div class="chatbot-icon" onclick="toggleChatbot()">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <span>My Shop 챗봇</span>
+                <button class="chatbot-close" onclick="toggleChatbot()">&times;</button>
+            </div>
+            <div class="chatbot-body">
+                <div class="chat-message bot">안녕하세요! My Shop 챗봇입니다.</div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" placeholder="메시지 입력...">
+                <button>전송</button>
+            </div>
+        </div>
+
+        <script>
+            /* 챗봇, 사이드바 스크립트 (기존 유지) */
+            function toggleChatbot() {
+                var chatWindow = document.getElementById('chatbotWindow');
+                if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
+                    chatWindow.style.display = 'flex';
+                } else {
+                    chatWindow.style.display = 'none';
+                }
+            }
+            function toggleCategorySidebar() {
+                const overlay = document.getElementById('categoryOverlay');
+                const sidebar = document.getElementById('categorySidebar');
+                if(overlay && sidebar) {
+                    overlay.classList.toggle('show');
+                    sidebar.classList.toggle('show');
+                }
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                const sidebarToggles = document.querySelectorAll('.category-sidebar-list .dropdown-toggle');
+                sidebarToggles.forEach(toggle => {
+                    toggle.addEventListener('click', function(event) {
+                        event.preventDefault(); 
+                        this.classList.toggle('active');
+                        const dropdownMenu = this.nextElementSibling; 
+                        dropdownMenu.classList.toggle('show');
+                    });
+                });
+            });
+        </script>
+
+        <!-- 로그아웃 알림 (기존) -->
+        <script th:if="${param.logout != null}">
+            alert('로그아웃이 되었습니다.');
+            history.replaceState({}, null, location.pathname);
+        </script>
+
+        <!-- ★★★ [추가] 접근 거부 알림 (403 Error) ★★★ -->
+        <!-- URL 파라미터가 error=denied 일 때 실행됩니다 -->
+        <script th:if="${param.error != null and param.error[0] == 'denied'}">
+            alert('접근 권한이 없습니다.\n관리자만 접근 가능합니다.');
+            history.replaceState({}, null, location.pathname);
+        </script>
+    </div>
+
+</body>
+</html>

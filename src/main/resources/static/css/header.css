@@ -1,0 +1,246 @@
+/* === 2. 헤더 (쿠팡/네이버 스타일) === */
+/* 헤더 상단: 로고, 로그인, 장바구니 등 */
+.header-top {
+    background-color: #fff;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-top-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.user-menu a {
+    margin-left: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* === 헤더 메인: (수정) 검색창만 남김 === */
+.header-main {
+    background-color: #fff;
+    padding: 20px 0; /* 패딩 조정 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-main-content {
+    display: flex;
+    align-items: center;
+}
+
+/* (수정) 검색창 (너비 70% 차지) */
+.search-wrapper {
+    width: 70%;
+    max-width: 600px; /* 최대 너비 재적용 */
+    margin: 0 auto; /* ★ 중앙 정렬 */
+    display: flex;
+}
+.search-bar {
+    width: 100%;
+    height: 54px;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    border: 2px solid var(--primary-color); /* (자동 적용) */
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+.search-btn {
+    width: 80px;
+    height: 54px;
+    border: none;
+    background-color: var(--primary-color); /* (자동 적용) */
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+
+/* ★★★ (신규) 헤더 하단: 네비게이션 바 (카테고리 버튼 + 링크) ★★★ */
+.category-nav {
+    background-color: var(--primary-color); /* (자동 적용) */
+    padding: 0;
+}
+.category-nav-content {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+/* '전체 카테고리' 열기 버튼 (☰) (네비게이션 바 안으로 이동) */
+.category-toggle-btn {
+    background-color: #4A89DC; 
+    color: white;
+    border: none;
+    border-radius: 0; /* 바에 붙도록 */
+    padding: 0 25px; /* 버튼 너비 */
+    height: 50px; /* 네비게이션 바 높이 */
+    font-size: 1rem; /* 아이콘 + 텍스트 크기 */
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 아이콘과 글자 간격 */
+    transition: background-color 0.2s ease;
+}
+.category-toggle-btn:hover {
+    background-color: #3A75C4;
+}
+.category-toggle-btn i {
+    font-size: 1.2rem;
+}
+
+/* '신상품', '베스트' 링크 리스트 (ul) */
+.category-nav-list {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    margin-left: 15px; /* 카테고리 버튼과의 간격 */
+}
+/* '신상품', '베스트' 링크 (a) */
+.category-nav-list .category-item > a {
+    display: block;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 14px 15px; /* 네비게이션 바 높이에 맞춤 */
+    transition: background-color 0.2s ease;
+}
+.category-nav-list .category-item > a:hover {
+    background-color: #4A89DC;
+    text-decoration: none;
+    opacity: 1;
+}
+
+/* === 2.1 (신규) 카테고리 사이드바 스타일 === */
+/* (이 부분은 '☰ 전체 카테고리' 클릭 시 나오는 숨겨진 메뉴입니다) */
+
+/* 1. 뒷 배경 (어둡게) */
+.category-overlay {
+    display: none; /* ★ 평소에는 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 */
+    z-index: 1010; /* 챗봇(1000)보다 위에 */
+    cursor: pointer;
+}
+.category-overlay.show {
+    display: block; /* JS가 'show' 클래스를 추가하면 보임 */
+}
+
+/* 2. 실제 메뉴 (왼쪽에서 나옴) */
+.category-sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -300px; /* ★ 평소에는 왼쪽 화면 밖 */
+    width: 300px; /* 너비 300px */
+    height: 100%;
+    background-color: #fff;
+    z-index: 1011;
+    transition: left 0.3s ease-out; /* 부드럽게 슬라이드 */
+    overflow-y: auto; /* 메뉴 길어지면 스크롤 */
+}
+.category-sidebar.show {
+    left: 0; /* JS가 'show' 클래스를 추가하면 보임 */
+}
+
+/* 2-1. 사이드바 헤더 (로고/닫기 버튼) */
+.category-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.category-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #555;
+    cursor: pointer;
+}
+
+/* 2-2. 사이드바 메뉴 (ul) */
+.category-sidebar-list {
+    list-style: none;
+    margin: 0;
+    padding: 15px;
+}
+.category-sidebar-list .category-item {
+    margin-bottom: 5px;
+}
+
+/* 1-depth 링크 (a) (★ 색상/패딩 수정) */
+.category-sidebar-list .category-item > a {
+    display: block;
+    color: #333; /* ★ 흰색 아님 */
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 12px 10px; /* ★ 패딩 수정 */
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+}
+.category-sidebar-list .category-item > a:hover {
+    background-color: var(--light-gray);
+}
+/* 1-depth (드롭다운 토글) */
+.category-sidebar-list .category-item > a.dropdown-toggle {
+    display: flex; /* 화살표 아이콘 배치를 위해 */
+    justify-content: space-between;
+    align-items: center;
+}
+/* 화살표 아이콘 */
+.category-sidebar-list .category-item > a.dropdown-toggle::after {
+    content: '\f078'; /* Font Awesome 'chevron-down' */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.8rem;
+    color: #888;
+    transition: transform 0.3s ease;
+}
+/* 열렸을 때 화살표 회전 */
+.category-sidebar-list .category-item > a.dropdown-toggle.active::after {
+    transform: rotate(180deg);
+}
+
+
+/* 2-depth 드롭다운 메뉴 (ul) (★ 스타일 수정) */
+.category-sidebar-list .dropdown-menu {
+    display: none; /* ★ 평소에는 숨김 */
+    list-style: none;
+    background-color: var(--light-gray); /* 배경색 구분 */
+    padding: 10px 0 10px 20px; /* 왼쪽 들여쓰기 */
+    margin-top: 5px;
+    border-radius: 5px;
+}
+/* 열렸을 때 (JS가 'show' 클래스 추가) */
+.category-sidebar-list .dropdown-menu.show {
+    display: block;
+}
+
+/* 2-depth 메뉴 아이템 (li a) */
+.category-sidebar-list .dropdown-menu li a {
+    display: block;
+    padding: 8px 15px;
+    color: #444;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.category-sidebar-list .dropdown-menu li a:hover {
+    background-color: var(--light-gray);
+    color: var(--primary-color); /* (자동 적용) */
+}

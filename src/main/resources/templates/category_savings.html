@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알뜰쇼핑 - My Shop</title>
+    
+    <!-- (CSS 연결은 category_new.html과 100% 동일) -->
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/product.css}">
+    <link rel="stylesheet" th:href="@{/css/chatbot.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <!-- === 1. 헤더 부품 불러오기 === -->
+    <div th:replace="~{fragments/header :: headerFragment}"></div>
+
+    <!-- === 메인 콘텐츠 (상품 목록) === -->
+    <main class="main-content">
+        <div class="container">
+            <!-- (index.html과 동일한 뼈대, 제목만 변경) -->
+            <h1 style="text-align: center; margin-bottom: 30px; font-weight: 700;">알뜰쇼핑</h1>
+            
+            <div class="product-grid">
+                <!-- (나중에 Spring Boot가 '할인' 데이터만 가져와서 채움) -->
+                <div class="product-card">
+                    <div class="product-image-placeholder">[상품 이미지]</div>
+                    <div class="product-info">
+                        <h3 class="product-name"><a th:href="@{/product/4}">4K 27인치 전문가용 모니터</a></h3>
+                        <p class="product-price">450,000원</p>
+                    </div>
+                </div>
+                <!-- ... (상품 카드 뼈대 생략) ... -->
+            </div>
+        </div>
+    </main>
+
+    <!-- === 2. 푸터 부품 불러오기 === -->
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
+    
+    <!-- === 3. 챗봇 부품 불러오기 === -->
+    <div th:replace="~{fragments/footer :: chatbotFragment}"></div>
+    
+</body>
+</html>

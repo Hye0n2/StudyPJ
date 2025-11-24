@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- 
+  [마이페이지 뼈대 파일 (mypage_layout.html)]
+  - 이 파일은 직접 열리지 않습니다.
+  - mypage_orders.html 등이 이 뼈대를 '조립'합니다.
+  - th:fragment="mypageLayout(...)" : 'mypageLayout'이라는 이름표를 붙입니다.
+  - 파라미터(title, menuCode, css, content)를 받아서 조립합니다.
+-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:fragment="mypageLayout(title, menuCode, css, content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 1. 부품으로 전달받은 title을 여기에 넣습니다. -->
+    <title th:text="${title} + ' - My Shop'"></title>
+
+    <!-- 2. 공통 CSS -->
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    
+    <!-- 3. 이 뼈대 전용 CSS (사이드바) -->
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    
+    <!-- 4. 공통 컴포넌트 CSS -->
+    <link rel="stylesheet" th:href="@{/css/chatbot.css}">
+    
+    <!-- 5. 아이콘 (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- 6. 부품으로 전달받은 css를 여기에 넣습니다. (예: board.css, form.css) -->
+    <th:block th:replace="${css}"></th:block>
+    
+</head>
+<body>
+
+    <!-- === 1. 헤더 부품 불러오기 === -->
+    <!-- templates/fragments/header.html 파일의 th:fragment="headerFragment" 부분을 가져옴 -->
+    <div th:replace="~{fragments/header :: headerFragment}"></div>
+
+    <!-- === 메인 콘텐츠 (마이페이지) === -->
+    <main class="main-content">
+        <div class="container mypage-wrapper">
+            
+            <!-- 왼쪽: 마이페이지 사이드바 -->
+            <div class="mypage-sidebar">
+                <h3>마이페이지</h3>
+                <ul>
+                    <!--
+                      th:classappend: 'menuCode'가 'orders'와 같으면 'active' 클래스를 추가
+                    -->
+                    <li><a th:href="@{/mypage/orders}" th:classappend="${menuCode == 'orders'} ? 'active'">주문 내역 조회</a></li>
+                    <li><a th:href="@{/mypage/edit}" th:classappend="${menuCode == 'edit'} ? 'active'">회원 정보 수정</a></li>
+                    <!-- ★★★ 링크를 /mypage/qna 로 수정 ★★★ -->
+                    <li><a th:href="@{/mypage/qna}" th:classappend="${menuCode == 'qna'} ? 'active'">1:1 문의 내역</a></li>
+                </ul>
+            </div>
+
+            <!-- 오른쪽: 실제 콘텐츠 (부품으로 전달받은 content가 들어옴) -->
+            <div class="mypage-content">
+                <th:block th:replace="${content}"></th:block>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- === 2. 푸터 부품 불러오기 === -->
+    <!-- templates/fragments/footer.html 파일의 th:fragment="footerFragment" 부분을 가져옴 -->
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
+    
+    <!-- === 3. 챗봇 부품 불러오기 === -->
+    <!-- templates/fragments/footer.html 파일의 th:fragment="chatbotFragment" 부분을 가져옴 -->
+    <div th:replace="~{fragments/footer :: chatbotFragment}"></div>
+    
+</body>
+</html>

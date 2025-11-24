@@ -1,0 +1,51 @@
+<!-- 1. admin_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{fragments/admin_layout :: adminLayout(
+          title='회원 관리', 
+          menuCode='user', 
+          css=~{::#admin-user-css}, 
+          content=~{::.admin-content-fragment}
+      )}">
+
+<!-- 2. 이 페이지 전용 CSS (board.css 재사용) -->
+<th:block id="admin-user-css">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="admin-content-fragment">
+    
+    <h1>회원 관리</h1>
+    <p style="margin-bottom: 25px; color: #666;">총 120명의 회원이 있습니다.</p>
+    
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th style="width: 10%;">회원ID</th>
+                <th style="width: 20%;">아이디</th>
+                <th style="width: 30%; text-align: left;">이메일</th>
+                <th style="width: 15%;">가입일</th>
+                <th style="width: 10%;">권한</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>admin</td>
+                <td style="text-align: left;">admin@myshop.com</td>
+                <td>2025-01-01</td>
+                <td style="color: red; font-weight: bold;">ADMIN</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>user94</td>
+                <td style="text-align: left;">user94@test.com</td>
+                <td>2025-11-08</td>
+                <td>USER</td>
+            </tr>
+            <!-- ... (나중에 반복) ... -->
+        </tbody>
+    </table>
+    
+</div>
+</html>

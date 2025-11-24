@@ -1,0 +1,274 @@
+/* === 6.1 폼 추가 링크 (아이디/비밀번호 찾기) === */
+.login-links {
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin-top: 25px; /* 로그인 버튼과의 간격 */
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.login-links a {
+    color: #555; /* 기본 글씨색 */
+    text-decoration: none;
+    margin: 0 10px; /* 링크 사이 좌우 간격 */
+    position: relative;
+}
+/* 링크 사이에 구분선 '|' 넣기 */
+.login-links a:not(:last-child)::after {
+    content: "|";
+    position: absolute;
+    right: -11px;
+    color: #ccc;
+}
+.login-links a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* === 6.2 자동 로그인 === */
+.form-options {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+.remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    cursor: pointer;
+    width: auto; 
+    padding: 0; 
+}
+.remember-me label {
+    margin-bottom: 0; 
+    font-weight: 500;
+    color: #555;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+/* === 6.3 소셜 로그인 (SVG 방식) === */
+.social-divider {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 0.9rem;
+    color: #aaa;
+    position: relative;
+}
+.social-divider::before,
+.social-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: var(--border-color);
+}
+.social-divider::before { left: 0; }
+.social-divider::after { right: 0; }
+
+/* 공통 버튼 스타일 */
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 아이콘과 텍스트를 중앙 정렬 */
+    
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 15px;
+    transition: opacity 0.2s ease;
+    
+    gap: 10px; /* 아이콘과 텍스트 사이 간격 */
+}
+
+/* 공통 SVG 아이콘 스타일 */
+.btn-social .social-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0; /* 아이콘이 찌그러지지 않게 함 */
+}
+
+/* 카카오 버튼 스타일 */
+.btn-social.kakao {
+    background-color: #FEE500;
+    color: #191919;
+}
+/* 카카오 SVG 아이콘 색상 (검은색) */
+.btn-social.kakao .social-icon path {
+    fill: #191919;
+}
+
+/* 네이버 버튼 스타일 */
+.btn-social.naver {
+    background-color: #03C75A;
+    color: white;
+}
+/* 네이버 SVG 아이콘 색상 (흰색) */
+.btn-social.naver .social-icon path {
+    fill: white;
+}
+
+.btn-social:hover {
+    opacity: 0.9;
+    text-decoration: none;
+}
+
+/* === 7.1 자동방지문자 (CAPTCHA) - 디자인 수정 === */
+
+/* 캡챠 텍스트와 버튼을 한 줄로 묶는 영역 */
+.captcha-display-area {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 5px; /* 텍스트와 버튼 사이 간격 */
+    margin-bottom: 15px; /* 입력창과의 간격 */
+}
+
+/* 캡챠 텍스트 박스 (수정) */
+.captcha-text {
+    flex: 1; /* 남은 공간을 꽉 채움 */
+    height: 95px; /* ★ 95px로 수정됨 */
+    padding: 0 10px; /* 상하 패딩 0, 좌우 10 */
+    
+    background-color: #333;
+    color: #fff;
+    font-size: 1.6rem; /* 폰트 크기 */
+    font-weight: 700;
+    text-align: center;
+    border-radius: 4px;
+    letter-spacing: 5px; /* 글자 사이 간격 */
+    user-select: none; 
+    
+    position: relative; /* ★ 방해선을 위한 기준점 */
+    display: flex; /* ★ 텍스트 세로 중앙 정렬용 */
+    align-items: center;
+    justify-content: center;
+}
+
+/* 캡챠 방해선 */
+.captcha-line {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    /* top: 50%; (JS가 제어) */
+    /* transform: rotate(-3deg); (JS가 제어) */
+    height: 2px; /* 선 굵기 */
+    background-color: rgba(255, 255, 255, 0.4); /* 반투명 흰색 */
+    pointer-events: none; 
+}
+
+
+/* 새로고침/음성듣기 버튼 영역 (수정) */
+.captcha-actions {
+    display: flex;
+    flex-direction: column; /* 버튼들을 세로로 쌓음 */
+    gap: 5px; /* 버튼 사이 간격 */
+}
+
+/* 아이콘 버튼 디자인 (수정) */
+.btn-icon {
+    width: 45px; 
+    height: 45px; /* ★ 95px의 절반(간격 5px 포함)으로 수정 */
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    color: #555;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.btn-icon:hover {
+    background-color: var(--light-gray);
+    border-color: #ccc;
+}
+.btn-icon i {
+    margin-right: 0;
+}
+
+/* === 7.2 (수정) 주소 검색 및 중복확인 그룹 === */
+/* (address-search와 duplicate-check-group에 공통 적용) */
+.address-search,
+.duplicate-check-group {
+    display: flex;
+    gap: 10px;
+}
+.address-search input,
+.duplicate-check-group input {
+    flex: 1;
+}
+.address-search button,
+.duplicate-check-group button {
+    flex-shrink: 0; /* 버튼 크기 줄어들지 않게 */
+    background-color: var(--secondary-color);
+    color: white;
+}
+.address-search button:hover,
+.duplicate-check-group button:hover {
+    background-color: #5a6268;
+}
+
+/* ★★★ (신규) 8. 성공 알림 메시지 박스 ★★★ */
+.alert-success {
+    background-color: #d4edda; /* 연한 초록색 배경 */
+    color: #155724; /* 진한 초록색 글씨 */
+    border: 1px solid #c3e6cb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+}
+.alert-success i {
+    margin-right: 8px; /* 아이콘 간격 */
+}
+
+/* (신규) 중복확인 메시지 스타일 */
+.check-message {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 5px;
+}
+.check-success { 
+    color: green; 
+}
+.check-error { 
+    color: #d9534f; 
+}
+
+/* === 7.4 이메일 폼 (signup.html) === */
+.email-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 아이템 사이 간격 */
+}
+.email-group .form-control {
+    flex: 1; /* 남은 공간을 나눠 가짐 */
+}
+.email-at {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #555;
+}
+
+/* ★★★ (신규) 7.5 휴대폰 번호 화살표 제거 ★★★ */
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

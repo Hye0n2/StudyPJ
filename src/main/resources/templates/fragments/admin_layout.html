@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- 
+  [관리자 뼈대 파일 (admin_layout.html)]
+  - 이 파일은 직접 열리지 않습니다.
+  - admin_dashboard.html 등이 이 뼈대를 '조립'합니다.
+  - th:fragment="adminLayout(...)" : 'adminLayout'이라는 이름표를 붙입니다.
+  - 파라미터(title, menuCode, css, content)를 받아서 조립합니다.
+-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:fragment="adminLayout(title, menuCode, css, content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 1. 부품으로 전달받은 title을 여기에 넣습니다. -->
+    <title th:text="${title} + ' - My Shop (Admin)'"></title>
+
+    <!-- 2. 공통 CSS -->
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    
+    <!-- 3. 이 뼈대 전용 CSS (사이드바) -->
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    
+    <!-- 4. 공통 컴포넌트 CSS -->
+    <link rel="stylesheet" th:href="@{/css/chatbot.css}">
+    
+    <!-- 5. 아이콘 (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- 6. 부품으로 전달받은 css를 여기에 넣습니다. (예: board.css, form.css) -->
+    <th:block th:replace="${css}"></th:block>
+    
+</head>
+<body>
+
+    <!-- === 1. 헤더 부품 불러오기 === -->
+    <!-- templates/fragments/header.html 파일의 th:fragment="headerFragment" 부분을 가져옴 -->
+    <div th:replace="~{fragments/header :: headerFragment}"></div>
+
+    <!-- === 메인 콘텐츠 (관리자) === -->
+    <main class="main-content">
+        <div class="container admin-wrapper">
+            
+            <!-- 왼쪽: 관리자 사이드바 -->
+            <div class="admin-sidebar">
+                <h3>관리자 메뉴</h3>
+                <ul>
+                    <!--
+                      th:classappend: 'menuCode'가 'dashboard'와 같으면 'active' 클래스를 추가
+                    -->
+                    <li><a th:href="@{/admin/dashboard}" th:classappend="${menuCode == 'dashboard'} ? 'active'">대시보드</a></li>
+                    <li><a th:href="@{/admin/categories}" th:classappend="${menuCode == 'category'} ? 'active'">카테고리 관리</a></li>
+                    <li><a th:href="@{/admin/products}" th:classappend="${menuCode == 'product'} ? 'active'">상품 관리</a></li>
+                    <li><a th:href="@{/admin/users}" th:classappend="${menuCode == 'user'} ? 'active'">회원 관리</a></li>
+                    <li><a th:href="@{/admin/orders}" th:classappend="${menuCode == 'order'} ? 'active'">주문 관리</a></li>
+                    <li><a th:href="@{/admin/qna}" th:classappend="${menuCode == 'qna'} ? 'active'">Q&A 관리</a></li>
+                    <li><a th:href="@{/admin/popups}" th:classappend="${menuCode == 'popup'} ? 'active'">팝업 관리</a></li>
+                </ul>
+            </div>
+
+            <!-- 오른쪽: 실제 콘텐츠 (부품으로 전달받은 content가 들어옴) -->
+            <div class="admin-content">
+                <th:block th:replace="${content}"></th:block>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- === 2. 푸터 부품 불러오기 === -->
+    <!-- templates/fragments/footer.html 파일의 th:fragment="footerFragment" 부분을 가져옴 -->
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
+    
+    <!-- === 3. 챗봇 부품 불러오기 === -->
+    <!-- templates/fragments/footer.html 파일의 th:fragment="chatbotFragment" 부분을 가져옴 -->
+    <div th:replace="~{fragments/footer :: chatbotFragment}"></div>
+    
+</body>
+</html>

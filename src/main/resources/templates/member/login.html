@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - My Shop</title>
+    
+    <!-- 1. 공통 CSS -->
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    
+    <!-- 2. 이 페이지 전용 CSS -->
+    <link rel="stylesheet" th:href="@{/css/form.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+    
+    <!-- 3. 공통 컴포넌트 CSS -->
+    <link rel="stylesheet" th:href="@{/css/chatbot.css}">
+    
+    <!-- 4. 아이콘 (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <!-- === 1. 헤더 부품 불러오기 === -->
+    <div th:replace="~{fragments/header :: headerFragment}"></div>
+
+    <!-- === 메인 콘텐츠 (로그인 폼) === -->
+    <main class="main-content">
+        <div class="container">
+             <div class="form-wrapper">
+                <h1>로그인</h1>
+                
+                <!-- 1. 회원가입 성공 메시지 -->
+                <div th:if="${signupSuccess}" class="alert-success">
+                    <i class="fas fa-check-circle"></i> <span th:text="${signupSuccess}"></span>
+                </div>
+
+                <!-- 2. 로그인 실패 메시지 -->
+                <div th:if="${param.error}" class="alert-danger" style="color: #d9534f; background: #fdd; padding: 10px; border-radius: 4px; margin-bottom: 20px; text-align: center;">
+                    <i class="fas fa-exclamation-circle"></i> 아이디 또는 비밀번호를 확인해주세요.
+                </div>
+                
+                <!-- 3. 로그인 폼 -->
+                <form th:action="@{/login}" method="post">
+                    
+                    <!-- 아이디 -->
+                    <div class="form-group">
+                        <label for="username">아이디</label>
+                        <input type="text" id="username" name="username" class="form-control" 
+                               th:value="${savedUsername}" required>
+                    </div>
+                    
+                    <!-- 비밀번호 -->
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" name="password" class="form-control" required>
+                    </div>
+
+                    <!-- 체크박스 영역 (자동 로그인 / 아이디 저장) -->
+                    <div class="form-options" style="display: flex; gap: 15px;">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember-me" name="remember-me" value="true">
+                            <label for="remember-me">자동 로그인</label>
+                        </div>
+                        <div class="remember-me">
+                            <input type="checkbox" id="save-id" name="save-id" value="true"
+                                   th:checked="${isIdSaved}">
+                            <label for="save-id">아이디 저장</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">로그인</button>
+                    
+                    <div class="login-links">
+                        <a th:href="@{/find-id}">아이디 찾기</a>
+                        <a th:href="@{/find-password}">비밀번호 찾기</a>
+                        <a th:href="@{/signup}">회원가입</a>
+                    </div>
+
+                    <!-- 소셜 로그인 영역 -->
+                    <div class="social-login">
+                        <div class="social-divider">
+                            <span>OR</span>
+                        </div>
+                        
+                        <!-- 1. 카카오 로그인 버튼 -->
+                         <a th:href="@{/oauth2/authorization/kakao}" class="btn-social kakao">
+                            <svg class="social-icon" width="20" height="20" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 3.014c-8.402 0-15.204 5.565-15.204 12.42 0 4.27 2.76 8.01 6.94 10.334l-2.48 7.377c-.156.467.4.82.783.513l8.83-6.9C18.31 26.84 18.65 26.86 19 26.86c8.402 0 15.204-5.565 15.204-12.42S27.402 3.014 19 3.014"/>
+                            </svg>
+                            <span>카카오 로그인</span>
+                        </a>
+                        
+                        <!-- [삭제됨] 네이버 로그인 버튼 -->
+                    </div>
+                </form>
+             </div>
+        </div>
+    </main>
+
+    <!-- 푸터 & 챗봇 & 사이드바 -->
+    <div th:replace="~{fragments/footer :: footerFragment}"></div>
+    <div th:replace="~{fragments/footer :: chatbotFragment}"></div>
+    <div th:replace="~{fragments/header :: categorySidebarFragment}"></div>
+    
+</body>
+</html>

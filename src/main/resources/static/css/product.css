@@ -1,0 +1,98 @@
+/* === 4. 상품 목록 (index.html) === */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.product-image-placeholder {
+    width: 100%;
+    height: 220px;
+    background-color: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 1rem;
+}
+.product-info {
+    padding: 20px;
+}
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #d9534f;
+}
+
+/* === 8. 페이지: 상품 상세 (product_detail.html) === */
+.product-detail-wrapper {
+    display: flex;
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    align-items: flex-start;
+}
+.product-image-large {
+    width: 45%;
+    height: 480px;
+    background-color: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+    font-size: 1.8rem;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+.product-info-detail {
+    width: 55%;
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+}
+.product-info-detail h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.product-info-detail .price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #d9534f;
+    margin-bottom: 25px;
+}
+.product-info-detail .description {
+    flex-grow: 1; 
+    margin-bottom: 25px;
+    line-height: 1.7;
+    color: #555;
+}
+.product-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: auto;
+}

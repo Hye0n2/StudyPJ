@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- 
+  [메인 페이지 (index.html)]
+  - '조립식 뼈대'를 '올바른 문법'으로 불러옵니다.
+-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shop</title>
+    
+    <!-- 1. 공통 CSS -->
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    
+    <!-- 2. 이 페이지 전용 CSS -->
+    <link rel="stylesheet" th:href="@{/css/product.css}">
+    <link rel="stylesheet" th:href="@{/css/popup.css}">
+    
+    <!-- 3. 공통 컴포넌트 CSS -->
+    <link rel="stylesheet" th:href="@{/css/chatbot.css}">
+    
+    <!-- 4. 아이콘 (CDN) (★ 'xintegrity' 오타 수정 완료) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <!-- === 1. 헤더 부품 불러오기 (★ 'th:replace' 문법 수정 완료) === -->
+    <div th:replace="fragments/header :: headerFragment"></div>
+
+    <!-- === 메인 콘텐츠 (상품 목록) === -->
+    <main class="main-content">
+        <div class="container">
+            
+            <h1 style="text-align: center; margin-bottom: 30px; font-weight: 700;" 
+                th:text="${categoryTitle ?: '추천 상품'}">
+                추천 상품
+            </h1>
+            
+            <div class="product-grid">
+                <!-- (나중에 Spring Boot가 'productList'로 반복시킬 영역) -->
+                
+                <!-- 상품 카드 1 -->
+                <div class="product-card">
+                    <div class="product-image-placeholder">[상품 이미지]</div>
+                    <div class="product-info">
+                        <h3 class="product-name"><a th:href="@{/product/1}">[특가] 스프링 부트 3.x 완벽 가이드북</a></h3>
+                        <p class="product-price">35,000원</p>
+                    </div>
+                </div>
+                
+                <!-- 상품 카드 2 -->
+                <div class="product-card">
+                    <div class="product-image-placeholder">[상품 이미지]</div>
+                    <div class="product-info">
+                        <h3 class="product-name"><a th:href="@{/product/2}">고급 기계식 키보드 (청축)</a></h3>
+                        <p class="product-price">120,000원</p>
+                    </div>
+                </div>
+                
+                <!-- 상품 카드 3 -->
+                <div class="product-card">
+                    <div class="product-image-placeholder">[상품 이미지]</div>
+                    <div class="product-info">
+                        <h3 class="product-name"><a th:href="@{/product/3}">무선 노이즈 캔슬링 헤드폰</a></h3>
+                        <p class="product-price">250,000원</p>
+                    </div>
+                </div>
+                
+                <!-- 상품 카드 4 -->
+                <div class="product-card">
+                    <div class="product-image-placeholder">[상품 이미지]</div>
+                    <div class="product-info">
+                        <h3 class="product-name"><a th:href="@{/product/4}">4K 27인치 전문가용 모니터</a></h3>
+                        <p class="product-price">450,000원</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- === 2. 푸터 부품 불러오기 (★ 'th:replace' 문법 수정 완료) === -->
+    <div th:replace="fragments/footer :: footerFragment"></div>
+    
+    <!-- === 3. 챗봇 부품 불러오기 (★ 'th:replace' 문법 수정 완료) === -->
+    <div th:replace="fragments/footer :: chatbotFragment"></div>
+    
+    <!-- === 4. 팝업 부품 불러오기 (★ 'th:replace' 문법 수정 완료) === -->
+    <div th:replace="fragments/popup :: popupFragment"></div>
+    
+    <!-- === 5. 카테고리 사이드바 부품 불러오기 (★ 'th:replace' 문법 수정 완료) === -->
+    <div th:replace="fragments/header :: categorySidebarFragment"></div>
+    
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!-- 1. mypage_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="fragments/mypage_layout :: mypageLayout(
+          title='1:1 새 문의하기', 
+          menuCode='qna',
+          css=~{::#mypage-qna-form-css}, 
+          content=~{::.mypage-content-fragment}
+      )">
+
+<!-- 2. 이 페이지 전용 CSS (form.css 재사용) -->
+<th:block id="mypage-qna-form-css">
+    <link rel="stylesheet" th:href="@{/css/form.css}">
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="mypage-content-fragment">
+    
+    <!-- (form.css의 .form-wrapper 재사용) -->
+    <div class="form-wrapper" style="margin: 0; max-width: 100%; box-shadow: none; padding: 0;"> 
+        <h1>1:1 새 문의하기</h1>
+        <p style="margin-bottom: 25px; color: #666;">쇼핑몰 이용 관련 궁금한 점을 문의해주세요.</p>
+
+        <!-- ★★★ POST 방식으로 /mypage/qna/create 주소로 폼 데이터를 전송 ★★★ -->
+        <form action="/mypage/qna/create" method="post">
+            <div class="form-group">
+                <label for="subject">제목</label>
+                <input type="text" id="subject" name="subject" class="form-control" placeholder="제목을 입력하세요" required>
+            </div>
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea id="content" name="content" class="form-control" placeholder="문의하실 내용을 입력하세요" required style="height: 250px;"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">문의 등록</button>
+        </form>
+    </div>
+    
+</div>
+</html>

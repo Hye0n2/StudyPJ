@@ -1,0 +1,128 @@
+<!-- 1. mypage_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="fragments/mypage_layout :: mypageLayout(
+          title='1:1 문의 내역', 
+          menuCode='qna',
+          css=~{::#mypage-qna-css}, 
+          content=~{::.mypage-content-fragment}
+      )">
+
+<!-- 2. 이 페이지 전용 CSS (qna_detail.css도 추가!) -->
+<th:block id="mypage-qna-css">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link rel="stylesheet" th:href="@{/css/qna_detail.css}"> <!-- ★ 상세 보기 CSS 추가 -->
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="mypage-content-fragment">
+    
+    <div class="board-actions" style="justify-content: space-between; align-items: center; margin-top: 0; margin-bottom: 25px;">
+        <h1>1:1 문의 내역</h1>
+        <a th:href="@{/mypage/qna/create}" class="btn btn-primary">새 문의하기</a>
+    </div>
+
+    <p style="margin-bottom: 25px; color: #666;">문의 제목을 클릭하면 상세 내용과 답변을 보실 수 있습니다.</p>
+    
+    <!-- ★★★ 테이블(table) 대신 '아코디언 리스트'로 변경 ★★★ -->
+    <div class="qna-accordion-list">
+        
+        <!-- 1번 글 (질문 + 답변 세트) -->
+        <div class="qna-item">
+            <!-- (1) 질문 제목 (클릭할 부분) -->
+            <div class="qna-list-item">
+                <span class="qna-status-answered">답변 완료</span>
+                <span class="qna-title">배송 문의 (답변 완료)</span>
+                <span class="qna-date">2025-11-08</span>
+                <i class="fas fa-chevron-down arrow-icon"></i> <!-- 화살표 아이콘 -->
+            </div>
+            
+            <!-- (2) 숨겨진 내용 (클릭하면 열릴 부분) -->
+            <div class="qna-hidden-content">
+                <!-- 질문(Question) 영역 -->
+                <div class="qna-detail-box">
+                    <div class="qna-detail-header">
+                        <h2>배송 문의 (답변 완료)</h2>
+                        <div class="qna-detail-meta">
+                            <span>작성자: user94</span>
+                            <span>작성일: 2025-11-08</span>
+                        </div>
+                    </div>
+                    <div class="qna-detail-content">
+                        <p>주문번호 20251108-001 배송이 언제 시작되나요?</p>
+                    </div>
+                </div>
+                <!-- 답변(Answer) 영역 -->
+                <div class="qna-detail-box qna-answer-box">
+                    <div class="qna-answer-header">
+                        <i class="fas fa-check-circle admin-icon"></i>
+                        <h3>관리자 답변</h3>
+                    </div>
+                    <div class="qna-detail-content">
+                        <p>안녕하세요, user94 고객님. 문의하신 주문건은 오늘 오후 4시경 출고될 예정입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2번 글 (질문만 있는 세트) -->
+        <div class="qna-item">
+            <!-- (1) 질문 제목 -->
+            <div class="qna-list-item">
+                <span class="qna-status-pending">답변 대기</span>
+                <span class="qna-title">상품 재고 문의합니다.</span>
+                <span class="qna-date">2025-11-07</span>
+                <i class="fas fa-chevron-down arrow-icon"></i>
+            </div>
+            
+            <!-- (2) 숨겨진 내용 -->
+            <div class="qna-hidden-content">
+                <!-- 질문(Question) 영역 -->
+                <div class="qna-detail-box">
+                    <div class="qna-detail-header">
+                        <h2>상품 재고 문의합니다.</h2>
+                        <div class="qna-detail-meta">
+                            <span>작성자: guest</span>
+                            <span>작성일: 2025-11-07</span>
+                        </div>
+                    </div>
+                    <div class="qna-detail-content">
+                        <p>고급 기계식 키보드 (청축) 재고 언제 들어오나요?</p>
+                    </div>
+                </div>
+                <!-- (답변이 없으므로 'qna-answer-box'가 없음) -->
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- ★★★ (수정) '하나만 열기' JavaScript ★★★ -->
+    <script th:inline="javascript">
+        // 1. 모든 'qna-list-item' (클릭할 제목)을 찾습니다.
+        const qnaItems = document.querySelectorAll(".qna-list-item");
+
+        qnaItems.forEach(clickedItem => {
+            clickedItem.addEventListener("click", function() {
+                
+                // 2. 현재 클릭한 아이템이 이미 열려있는지 확인
+                const isAlreadyOpen = this.classList.contains("active");
+
+                // 3. ★★★ 먼저 모든 아이템을 닫습니다 ★★★
+                qnaItems.forEach(item => {
+                    item.classList.remove("active");
+                    item.nextElementSibling.style.maxHeight = null;
+                });
+
+                // 4. 만약 클릭한 아이템이 (3번에서 닫히기 전) 열려있지 않았던 거라면
+                if (!isAlreadyOpen) {
+                    // 5. 클릭한 아이템만 다시 엽니다.
+                    this.classList.add("active");
+                    const content = this.nextElementSibling;
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+                
+            });
+        });
+    </script>
+    
+</div>
+</html>

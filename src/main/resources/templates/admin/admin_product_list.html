@@ -1,0 +1,53 @@
+<!-- 1. admin_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{fragments/admin_layout :: adminLayout(
+          title='상품 관리', 
+          menuCode='product', 
+          css=~{::#admin-product-css}, 
+          content=~{::.admin-content-fragment}
+      )}">
+
+<!-- 2. 이 페이지 전용 CSS (board.css 재사용) -->
+<th:block id="admin-product-css">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="admin-content-fragment">
+    
+    <div class="board-actions" style="justify-content: space-between; align-items: center; margin-top: 0; margin-bottom: 25px;">
+        <h1>상품 관리</h1>
+        <a th:href="@{/admin/product/create}" class="btn btn-primary">새 상품 등록</a>
+    </div>
+    
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th style="width: 10%;">상품ID</th>
+                <th style="width: 50%; text-align: left;">상품명</th>
+                <th style="width: 15%;">가격</th>
+                <th style="width: 15%;">재고</th>
+                <th style="width: 10%;">관리</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- (나중에 Spring Boot로 반복될 영역) -->
+            <tr>
+                <td>1</td>
+                <td style="text-align: left;"><a href="#">[특가] 스프링 부트 3.x 완벽 가이드북</a></td>
+                <td>35,000원</td>
+                <td>50</td>
+                <td><a href="#" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.9rem;">수정</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td style="text-align: left;"><a href="#">고급 기계식 키보드 (청축)</a></td>
+                <td>120,000원</td>
+                <td>20</td>
+                <td><a href="#" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.9rem;">수정</a></td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+</html>

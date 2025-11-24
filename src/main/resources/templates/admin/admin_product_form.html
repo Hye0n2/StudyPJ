@@ -1,0 +1,59 @@
+<!-- 1. admin_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="fragments/admin_layout :: adminLayout(
+          title='상품 등록', 
+          menuCode='product', 
+          css=~{::#admin-product-form-css}, 
+          content=~{::.admin-content-fragment}
+      )">
+
+<!-- 2. 이 페이지 전용 CSS (form.css 재사용) -->
+<th:block id="admin-product-form-css">
+    <link rel="stylesheet" th:href="@{/css/form.css}">
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="admin-content-fragment">
+    
+    <div class="form-wrapper" style="margin: 0; max-width: 100%; box-shadow: none; padding: 0;">
+        <h1>상품 등록</h1>
+        <p style="margin-bottom: 25px; color: #666;">쇼핑몰에 표시될 새 상품을 등록합니다.</p>
+        
+        <form action="/admin/product/create" method="post">
+            <div class="form-group">
+                <label for="productName">상품명</label>
+                <input type="text" id="productName" name="productName" class="form-control" required>
+            </div>
+            
+            <!-- ★★★ (신규) 카테고리 선택 ★★★ -->
+            <div class="form-group">
+                <label for="category">카테고리</label>
+                <select id="category" name="category" class="form-control" required>
+                    <option value="">카테고리를 선택하세요</option>
+                    <!-- (나중에 DB에서 2-depth 카테고리 목록을 가져옴) -->
+                    <option value="101">컴퓨터 > 모니터</option>
+                    <option value="102">컴퓨터 > 키보드</option>
+                    <option value="201">가전 > TV</option>
+                    <option value="202">가전 > 청소기</option>
+                </select>
+            </div>
+            <!-- ★★★ 여기까지 ★★★ -->
+
+            <div class="form-group">
+                <label for="price">가격</label>
+                <input type="number" id="price" name="price" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">상품 설명</label>
+                <textarea id="description" name="description" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image">상품 이미지 파일</label>
+                <input type="file" id="image" name="image" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">등록하기</button>
+        </form>
+    </div>
+    
+</div>
+</html>

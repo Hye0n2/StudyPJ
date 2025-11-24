@@ -1,0 +1,44 @@
+<!-- 1. mypage_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{fragments/mypage_layout :: mypageLayout(
+          title='주문 내역 조회', 
+          menuCode='orders',  
+          css=~{::#mypage-orders-css}, 
+          content=~{::.mypage-content-fragment}
+      )}">
+
+<!-- 2. 이 페이지 전용 CSS (board.css 재사용) -->
+<th:block id="mypage-orders-css">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="mypage-content-fragment">
+    
+    <h1>주문 내역 조회</h1>
+    <p style="margin-bottom: 25px; color: #666;">최근 3개월간의 주문 내역입니다.</p>
+
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th style="width: 15%;">주문 번호</th>
+                <th style="width: 45%; text-align: left;">주문 상품명</th>
+                <th style="width: 15%;">결제 금액</th>
+                <th style="width: 15%;">주문일자</th>
+                <th style="width: 10%;">상태</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- (나중에 Spring Boot로 반복될 영역) -->
+            <tr>
+                <td>20251108-001</td>
+                <td style="text-align: left;"><a th:href="@{/mypage/order/1}">[특가] 스프링 부트 외 1건</a></td>
+                <td>158,000원</td>
+                <td>2025-11-08</td>
+                <td style="color: green; font-weight: bold;">배송 완료</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+</html>

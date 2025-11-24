@@ -1,0 +1,59 @@
+<!-- 1. admin_layout.html 뼈대를 사용합니다. -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="fragments/admin_layout :: adminLayout(
+          title='팝업 관리', 
+          menuCode='popup',
+          css=~{::#admin-popup-css}, 
+          content=~{::.admin-content-fragment}
+      )">
+
+<!-- 2. 이 페이지 전용 CSS (board.css 재사용) -->
+<th:block id="admin-popup-css">
+    <link rel="stylesheet" th:href="@{/css/board.css}">
+</th:block>
+
+<!-- 3. 이 페이지의 실제 콘텐츠 -->
+<div class="admin-content-fragment">
+    
+    <div class="board-actions" style="justify-content: space-between; align-items: center; margin-top: 0; margin-bottom: 25px;">
+        <h1>팝업 관리</h1>
+        <!-- (나중에 /admin/popup/create 폼 페이지 만들면 연결) -->
+        <a th:href="@{/admin/popup/create}" class="btn btn-primary">새 팝업 등록</a>
+    </div>
+
+    <p style="margin-bottom: 25px; color: #666;">메인 페이지에 노출될 팝업을 관리합니다.</p>
+    
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">ID</th>
+                <th style="width: 30%; text-align: left;">팝업 제목</th>
+                <th style="width: 10%;">표시 상태</th>
+                <th style="width: 20%;">시작일</th>
+                <th style="width: 20%;">종료일</th>
+                <th style="width: 15%;">관리</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- (나중에 Spring Boot로 반복될 영역) -->
+            <tr>
+                <td>1</td>
+                <td style="text-align: left;"><a href="#">신규 회원가입 10% 할인</a></td>
+                <td style="color: green; font-weight: bold;">진행중</td>
+                <td>2025-11-01 00:00</td>
+                <td>2025-11-30 23:59</td>
+                <td><a href="#" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.9rem;">수정</a></td>
+            </tr>
+             <tr>
+                <td>2</td>
+                <td style="text-align: left;"><a href="#">크리스마스 특별 세일</a></td>
+                <td style="color: #888;">대기</td>
+                <td>2025-12-20 00:00</td>
+                <td>2025-12-25 23:59</td>
+                <td><a href="#" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.9rem;">수정</a></td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+</html>

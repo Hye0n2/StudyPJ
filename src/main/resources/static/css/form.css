@@ -1,0 +1,45 @@
+/* === 5. 폼 (로그인, 상품등록, 회원가입) === */
+.form-wrapper {
+    background-color: #ffffff;
+    padding: 40px 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+}
+.form-wrapper h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.form-group {
+    margin-bottom: 25px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.form-control {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+.form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(93, 156, 236, 0.25);
+}
+textarea.form-control {
+    height: 150px;
+    resize: vertical;
+}
+input:read-only {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
